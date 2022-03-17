@@ -91,6 +91,30 @@
             </li>
           </ul>
 
+          <p class="menu-label">Regular Expressions</p>
+          <ul class="menu-list">
+            <li>
+              <a data-page="re">
+                <span class="icon-text">
+                  <span class="icon">
+                    <i class="fas fa-book"></i>
+                  </span>
+                  <span>Reference</span>
+                </span>
+              </a>
+            </li>
+            <li>
+              <a data-page="re-exercise">
+                <span class="icon-text">
+                  <span class="icon">
+                    <i class="fas fa-clipboard-list"></i>
+                  </span>
+                  <span>Exercise</span>
+                </span>
+              </a>
+            </li>
+          </ul>
+
         </aside>
       </div>
 
@@ -150,13 +174,15 @@
       <div class="block">
         Another excellent resource for Python strings is the official Python documentation. Here are some pages to check
         out:
-        <ul>
-          <li><a href="https://docs.python.org/3/library/string.html" target="_blank">string</a></li>
-          <li><a href="https://docs.python.org/3/library/stdtypes.html#string-methods" target="_blank">string
-              methods</a></li>
-          <li><a href="https://docs.python.org/3/reference/lexical_analysis.html#f-strings"
-              target="_blank">f-strings</a></li>
-        </ul>
+        <div class="content">
+          <ul>
+            <li><a href="https://docs.python.org/3/library/string.html" target="_blank">string</a></li>
+            <li><a href="https://docs.python.org/3/library/stdtypes.html#string-methods" target="_blank">string
+                methods</a></li>
+            <li><a href="https://docs.python.org/3/reference/lexical_analysis.html#f-strings"
+                target="_blank">f-strings</a></li>
+          </ul>
+        </div>
       </div>
       <div class="block">
         Once you feel ready, try out the exercises. Use the above pages as a reference if you get stuck.
@@ -183,7 +209,7 @@
         <a href="https://docs.python.org/3/library/stdtypes.html#lists" target="_blank">lists</a>.
       </div>
 
-      <h2 class="subtitle">Sorting</h2>
+      <h2 class="title is-3">Sorting</h2>
       <div class="block">
         The original Google Python Class <a href="https://developers.google.com/edu/python/sorting"
           target="_blank">Sorting</a> page gives a nice overview of sorting in Python.
@@ -231,6 +257,172 @@
       <div class="block">
         Try out the <b>basic/wordcount.py</b> and <b>basic/mimic.py</b> exercises. You might want to flip back to the
         dicts and files Reference page while coming up with your solutions.
+      </div>
+    </div>
+
+    <div id="re">
+      <h1 class="title">Regular Expressions</h1>
+      <div class="block">
+        The original Google Python Class <a href="https://developers.google.com/edu/python/regular-expressions"
+          target="_blank">Regular Expressions</a> page includes a gentle introduction to Python's regular expression
+        syntax.
+      </div>
+      <div class="block">
+        The official Python documentation for the
+        <code><a href="https://docs.python.org/3/library/re.html" target="_blank">re</a></code> module is a great
+        reference.
+      </div>
+      <div class="block">
+        Once you feel ready, try out the next exercise. Use the above pages as a reference if you get stuck.
+      </div>
+    </div>
+
+    <div id="re-exercise">
+      <h1 class="title">Regular Expression Exercise</h1>
+      <div class="block">
+        The next exercise is <b>babynames/babynames.py</b>. The instructions for the exercise can be found on the
+        original Google Python Class <a href="https://developers.google.com/edu/python/exercises/baby-names"
+          target="_blank">Baby Names</a> page. It is also copied below.
+      </div>
+      <div class="box">
+        <div class="block">
+          The Social Security administration has this neat data by year of what names are most popular for babies born
+          that year in the USA (see <a href="http://www.socialsecurity.gov/OACT/babynames/" target="_blank">social
+            security baby names</a>).
+        </div>
+
+        <div class="block">
+          The files for this exercise are in the "babynames" directory of the downloaded <b>exercises.zip</b>. Add your
+          code in babynames.py. The files baby1990.html baby1992.html ... contain raw html, similar to what you get
+          visiting the above social security site. Take a look at the html and think about how you might scrape the data
+          out of it.
+        </div>
+
+        <h2 class="title is-3">Part A</h2>
+        <div class="block">
+          In the babynames.py file, implement the <code>extract_names(filename)</code> function which takes the filename
+          of a baby1990.html file and returns the data from the file as a single list -- the year string at the start of
+          the list followed by the name-rank strings in alphabetical order.
+          <code>['2006', 'Aaliyah 91', 'Abagail 895', 'Aaron 57', ...]</code>.
+          Modify <code>main()</code> so it calls your <code>extract_names</code> function and prints what it returns
+          (<code>main</code> already has the code for the command line argument parsing). If you get stuck working out
+          the regular expressions for the year and each name, solution regular expression patterns are shown at the end
+          of this document. Note that for parsing webpages in general, regular expressions don't do a good job, but
+          these webpages have a simple and consistent format.
+        </div>
+
+        <div class="block">
+          Rather than treat the boy and girl names separately, we'll just lump them all together. In some years, a name
+          appears more than once in the html, but we'll just use one number per name. Optional: make the algorithm smart
+          about this case and choose whichever number is smaller.
+        </div>
+
+        <div class="block">
+          Build the program as a series of small milestones, getting each step to run/print something before trying the
+          next step. This is the pattern used by experienced programmers -- build a series of incremental milestones,
+          each with some output to check, rather than building the whole program in one huge step.
+        </div>
+
+        <div class="block">
+          Printing the data you have at the end of one milestone helps you think about how to re-structure that data for
+          the next milestone. Python is well suited to this style of incremental development. For example, first get it
+          to the point where it extracts and prints the year and calls <code>sys.exit(0)</code>. Here are some suggested
+          milestones:
+        </div>
+
+        <div class="content">
+          <ul>
+            <li>Extract all the text from the file and print it</li>
+            <li>Find and extract the year and print it</li>
+            <li>Extract the names and rank numbers and print them</li>
+            <li>Get the names data into a dict and print it</li>
+            <li>Build the <code>[year, 'name rank', ... ]</code> list and print it</li>
+            <li>Update <code>main</code> so that it calls <code>extract_names</code></li>
+          </ul>
+        </div>
+
+        <div class="block">
+          Earlier we have had functions just print to standard out. It's more re-usable to have the function
+          <b>return</b> the extracted data, so then the caller has the choice to print it or do something else with it.
+          (You can still print directly from inside your functions for your little experiments during development.)
+        </div>
+
+        <div class="block">
+          Have <code>main</code> call <code>extract_names</code> for each command line argument and print a text
+          summary. To make the list into a reasonable looking summary text, here's a clever use of <code>join</code>:
+        </div>
+
+        <div class="block">
+          <pre>text = '\n'.join(mylist) + '\n'</pre>
+        </div>
+
+        <div class="block">
+          The summary text should look like this for each file:
+        </div>
+
+        <div class="block">
+          <pre>2006
+Aaliyah 91
+Aaron 57
+Abagail 895
+Abbey 695
+Abbie 650
+...</pre>
+        </div>
+
+        <h2 class="title is-3">Part B</h2>
+        <div class="block">
+          Suppose instead of printing the text to standard out, we want to write files containing the text. If the flag
+          <code>--summaryfile</code> is present, do the following: for each input file foo.html, create a new file
+          foo.html.summary that contains the summary text for that file.
+        </div>
+
+        <div class="block">
+          Once the <code>--summaryfile</code> feature is working, run the program on all the files using <code>*</code>
+          like this:
+        </div>
+
+        <div class="block">
+          <pre>python babynames.py --summaryfile baby*.html</pre>
+        </div>
+
+        <div class="block">
+          This generates all the summaries in one step. (The standard behavior of the shell is that it expands the
+          <code>baby*.html</code> pattern into a list of matching filenames, and then the shell runs babynames.py,
+          passing in all those filenames in the <code>sys.argv</code> list.)
+        </div>
+
+        <div class="block">
+          With the data organized into summary files, you can see patterns over time with shell commands, like this:
+        </div>
+
+        <div class="block">
+          <pre>$ grep 'Trinity ' *.summary
+$ grep 'Nick ' *.summary
+$ grep 'Miguel ' *.summary
+$ grep 'Emily ' *.summary</pre>
+        </div>
+
+        <h3 class="title is-5">Regular expression hints</h3>
+        <div id="hints">
+          <div class="block">
+            <p>year:</p>
+            <button class="button" data-hint="year-hint">Reveal</button>
+            <div id="year-hint" class="is-hidden">
+              <pre>r'Popularity\sin\s(\d\d\d\d)'</pre>
+            </div>
+          </div>
+
+          <div class="block">
+            <p>names:</p>
+            <button class="button" data-hint="name-hint">Reveal</button>
+            <div id="name-hint" class="is-hidden">
+              <pre>r'&lt;td&gt;(\d+)&lt;/td&gt;&lt;td&gt;(\w+)&lt;/td&gt;\&lt;td&gt;(\w+)&lt;/td&gt;'</pre>
+            </div>
+          </div>
+        </div>
+        <script src="hints.js"></script>
+
       </div>
     </div>
 
