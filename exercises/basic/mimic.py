@@ -45,20 +45,20 @@ import random
 import sys
 
 
-def mimic_dict(filename):
+def mimic_dict(filename: str) -> dict[str, list[str]]:
   """Returns mimic dict mapping each word to list of words which follow it."""
   # +++your code here+++
   return
 
 
-def print_mimic(mimic_dict, word):
+def print_mimic(mimic_dict: dict[str, list[str]], word: str) -> None:
   """Given mimic dict and start word, prints 200 random words."""
   # +++your code here+++
   return
 
 
 # Provided main(), calls mimic_dict() and mimic()
-def main():
+def main() -> None:
   if len(sys.argv) != 2:
     print('usage: ./mimic.py file-to-read')
     sys.exit(1)

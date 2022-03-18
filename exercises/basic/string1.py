@@ -23,7 +23,7 @@
 # instead of the actual count.
 # So donuts(5) returns 'Number of donuts: 5'
 # and donuts(23) returns 'Number of donuts: many'
-def donuts(count: str) -> str:
+def donuts(count: int) -> str:
   # +++your code here+++
   return
 
@@ -66,7 +66,7 @@ def mix_up(a: str, b: str) -> str:
 
 # Provided simple test() function used in main() to print
 # what each function returns vs. what it's supposed to return.
-def test(got: str, expected: str):
+def test(got: str, expected: str) -> None:
   if got == expected:
     prefix = ' OK '
   else:
@@ -76,7 +76,7 @@ def test(got: str, expected: str):
 
 # Provided main() calls the above functions with interesting inputs,
 # using test() to check if each result is correct or not.
-def main():
+def main() -> None:
   print('donuts')
   # Each line calls donuts, compares its result to the expected for that call.
   test(donuts(4), 'Number of donuts: 4')

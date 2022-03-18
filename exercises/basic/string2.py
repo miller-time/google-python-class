@@ -47,7 +47,7 @@ def front_back(a: str, b: str) -> str:
 
 # Simple provided test() function used in main() to print
 # what each function returns vs. what it's supposed to return.
-def test(got: str, expected: str):
+def test(got: str, expected: str) -> None:
   if got == expected:
     prefix = ' OK '
   else:
@@ -57,7 +57,7 @@ def test(got: str, expected: str):
 
 # main() calls the above functions with interesting inputs,
 # using the above test() to check if the result is correct or not.
-def main():
+def main() -> None:
   print('verbing')
   test(verbing('hail'), 'hailing')
   test(verbing('swiming'), 'swimingly')

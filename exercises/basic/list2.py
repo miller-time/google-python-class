@@ -38,7 +38,7 @@ def linear_merge(list1: list[str], list2: list[str]) -> list[str]:
 
 # Simple provided test() function used in main() to print
 # what each function returns vs. what it's supposed to return.
-def test(got: list[Any], expected: list[Any]):
+def test(got: list[Any], expected: list[Any]) -> None:
   if got == expected:
     prefix = ' OK '
   else:
@@ -47,7 +47,7 @@ def test(got: list[Any], expected: list[Any]):
 
 
 # Calls the above functions with interesting inputs.
-def main():
+def main() -> None:
   print('remove_adjacent')
   test(remove_adjacent([1, 2, 2, 3]), [1, 2, 3])
   test(remove_adjacent([2, 2, 3, 3, 3]), [2, 3])

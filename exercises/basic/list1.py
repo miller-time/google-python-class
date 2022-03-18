@@ -53,7 +53,7 @@ def sort_last(tuples: list[tuple[int, int]]) -> list[tuple[int, int]]:
 
 # Simple provided test() function used in main() to print
 # what each function returns vs. what it's supposed to return.
-def test(got: Any, expected: Any):
+def test(got: Any, expected: Any) -> None:
   if got == expected:
     prefix = ' OK '
   else:
@@ -62,7 +62,7 @@ def test(got: Any, expected: Any):
 
 
 # Calls the above functions with interesting inputs.
-def main():
+def main() -> None:
   print('match_ends')
   test(match_ends(['aba', 'xyz', 'aa', 'x', 'bbb']), 3)
   test(match_ends(['', 'x', 'xy', 'xyx', 'xx']), 2)
