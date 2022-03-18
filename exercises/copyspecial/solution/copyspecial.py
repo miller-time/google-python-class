@@ -11,6 +11,7 @@ import re
 import os
 import shutil
 import subprocess
+import zipfile
 
 """Copy Special exercise
 """
@@ -40,16 +41,11 @@ def copy_to(paths: list[str], to_dir: str) -> None:
     # could error out if already exists os.path.exists():
 
 
-def zip_to(paths: list[str], zipfile: str) -> None:
+def zip_to(paths: list[str], zip_path: str) -> None:
   """Zip up all of the given files into a new zip file with the given name."""
-  cmd = 'zip -j ' + zipfile + ' ' + ' '.join(paths)
-  print("Command I'm going to do:" + cmd)
-  (status, output) = subprocess.getstatusoutput(cmd)
-  # If command had a problem (status is non-zero),
-  # print its output to stderr and exit.
-  if status:
-    sys.stderr.write(output)
-    sys.exit(1)
+  with zipfile.ZipFile(zip_path, 'w') as z:
+    for p in paths:
+      z.write(p)
 
 # LAB(end solution)
 
