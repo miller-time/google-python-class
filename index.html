@@ -137,6 +137,16 @@
                 </span>
               </a>
             </li>
+            <li>
+              <a data-page="log-puzzle">
+                <span class="icon-text">
+                  <span class="icon">
+                    <i class="fas fa-clipboard-list"></i>
+                  </span>
+                  <span>Log Puzzle</span>
+                </span>
+              </a>
+            </li>
           </ul>
 
         </aside>
@@ -663,6 +673,133 @@ xyz__hello__.txt        zz__something__.jpg</pre>
 
         <div class="block">
           <pre>$ ./copyspecial.py --tozip tmp.zip .</pre>
+        </div>
+      </div>
+    </div>
+
+    <div id="log-puzzle">
+      <h1 class="title">Log Puzzle Exercise</h1>
+      <div class="block">
+        The next exercise is <b>logpuzzle/logpuzzle.py</b>. The instructions for the exercise can be found on the
+        original Google Python Class <a href="https://developers.google.com/edu/python/exercises/log-puzzle"
+          target="_blank">Log Puzzle</a> page. It is also copied below.
+      </div>
+
+      <div class="box">
+        <div class="block">
+          An image of an animal has been broken into many narrow vertical stripe images. The stripe images are on the
+          internet somewhere, each with its own URL. The URLs are hidden in a web server log file. Your mission is to
+          find the URLs and download all image stripes to re-create the original image.
+        </div>
+
+        <div class="block">
+          The slice URLs are hidden inside apache log files (the open source <a href="http://httpd.apache.org/"
+            target="_blank">apache</a> web server is the most widely used server on the internet). Each log file is from
+          some server, and the desired slice URLs are hidden within the logs. The log file encodes what server it comes
+          from like this: the log file <b>animal_code.google.com</b> is from the <code>code.google.com</code> server
+          (formally, we'll say that the server name is whatever follows the first underbar). The
+          <b>animal_code.google.com</b> log file contains the data for the "animal" puzzle image. Although the data in
+          the log files has the syntax of a real apache web server, the data beyond what's needed for the puzzle is
+          randomized data from a real log file.
+        </div>
+
+        <div class="block">
+          Here is what a single line from the log file looks like (this really is what apache log files look like):
+        </div>
+
+        <div class="block">
+          <pre>10.254.254.28 - - [06/Aug/2007:00:14:08 -0700] "GET /foo/talks/ HTTP/1.1"
+200 5910 "-" "Mozilla/5.0 (X11; U; Linux i686 (x86_64); en-US; rv:1.8.1.4) Gecko/20070515 Firefox/2.0.0.4"</pre>
+        </div>
+
+        <div class="block">
+          The first few numbers are the address of the requesting browser. The most interesting part is the
+          <code>GET path HTTP</code> showing the path of a web request received by the server. The path itself never
+          contains spaces, and is separated from the <code>GET</code> and <code>HTTP</code> by spaces (regex suggestion:
+          <code>\S</code> (upper case S) matches any non-space char). Find the lines in the log where the string
+          "puzzle" appears inside the path, ignoring the many other lines in the log.
+        </div>
+
+        <h2 class="title is-3">Part 1</h2>
+        <div class="block">
+          Complete the <code>read_urls</code> function that extracts the puzzle URLs from inside a log file. Find all
+          the "puzzle" path URLs in the log file. Combine the path from each URL with the server name from the filename
+          to form a full URL, e.g. <code>http://www.example.com/path/puzzle/from/inside/file</code>. Exclude URLs that
+          appear more than once. The <code>read_urls</code> function should return the list of full URLs, sorted into
+          alphabetical order and without duplicates. Taking the URLs in alphabetical order will yield the image slices
+          in the correct left-to-right order to re-create the original image. In the simplest case, <code>main</code>
+          should just print the URLs, one per line.
+        </div>
+
+        <div class="block">
+          <pre>$ ./logpuzzle.py animal_code.google.com
+http://code.google.com/something/puzzle-animal-baaa.jpg
+http://code.google.com/something/puzzle-animal-baab.jpg
+...</pre>
+        </div>
+
+        <h2 class="title is-3">Part 2</h2>
+        <div class="block">
+          Complete the <code>download_images</code> function which takes a sorted list of URLs and a directory. Download
+          the image from each URL into the given directory, creating the directory first if necessary (see the
+          <code>os</code> module to create a directory, and <code>urllib.request.urlretrieve</code> for downloading a
+          url). Name the local image files with a simple scheme like "img0", "img1", "img2", and so on. You may wish to
+          print a little "Retrieving..." status output line while downloading each image since it can be slow and it's
+          nice to have some indication that the program is working. Each image is a little vertical slice from the
+          original. How to put the slices together to re-create the original? It can be solved nicely with a little html
+          (knowledge of HTML is not required).
+        </div>
+
+        <div class="block">
+          The <code>download_images</code> function should also create an <b>index.html</b> file in the directory with
+          an <code>img</code> tag to show each local image file. The <code>img</code> tags should all be on one line
+          together without separation. In this way, the browser displays all the slices together seamlessly. You do not
+          need knowledge of HTML to do this; just create an <b>index.html</b> file that looks like this:
+        </div>
+
+        <div class="block">
+          <pre>&lt;html&gt;
+&lt;body&gt;
+&lt;img src="/edu/python/exercises/img0"&gt;&lt;img src="/edu/python/exercises/img1"&gt;&lt;img src="/edu/python/exercises/img2"&gt;...
+&lt;/body&gt;
+&lt;/html&gt;</pre>
+        </div>
+
+        <div class="block">
+          Here's what it should look like when you download the animal puzzle:
+        </div>
+
+        <div class="block">
+          <pre>$ ./logpuzzle.py --todir animaldir animal_code.google.com
+$ ls animaldir
+img0  img1  img2  img3  img4  img5  img6  img7  img8  img9  index.html</pre>
+        </div>
+
+        <div class="block">
+          When it's all working, opening the <b>index.html</b> in a browser should reveal the original animal image.
+          What is the animal in the image?
+        </div>
+
+        <h2 class="title is-3">Part 3</h2>
+        <div class="block">
+          The second puzzle involves an image of a very famous place but depends on some custom sorting. For the first
+          puzzle, the URLs can be sorted alphabetically to order the images correctly. In the sort, the whole URL is
+          used. However, we'll say that if the URL ends in the pattern <code>-wordchars-wordchars.jpg</code>, e.g.
+          <code>http://example.com/foo/puzzle/bar-abab-baaa.jpg</code>, then the sort should use the second word (e.g.
+          "baaa") for that URL. So sorting a list of URLs each ending with the <code>word-word.jpg</code> pattern should
+          order the URLs by the second word.
+        </div>
+
+        <div class="block">
+          Extend your code to order such URLs properly, and then you should be able to decode the
+          <b>place_code.google.com</b> puzzle which shows a famous place. What place does it show?
+        </div>
+
+        <div class="block">
+          CC Attribution: the images used in this puzzle were made available by their owners under the <a
+            href="http://creativecommons.org/licenses/by/2.5/" target="_blank">Creative Commons Attribution 2.5</a>
+          license, which generously encourages remixes of the content such as this one. The animal image is from the
+          user zappowbang at flickr and the place image is from the user booleansplit at flickr.
         </div>
       </div>
     </div>
