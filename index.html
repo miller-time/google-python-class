@@ -643,7 +643,7 @@ $ grep 'Emily ' *.summary</pre>
         </div>
 
         <div class="block">
-          <pre>$ ./copyspecial.py .
+          <pre>$ python copyspecial.py .
 /Users/miller-time/pycourse/day2/xyz__hello__.txt
 /Users/miller-time/pycourse/day2/zz__something__.jpg</pre>
         </div>
@@ -660,7 +660,7 @@ $ grep 'Emily ' *.summary</pre>
         </div>
 
         <div class="block">
-          <pre>$ ./copyspecial.py --todir /tmp/fooby .
+          <pre>$ python copyspecial.py --todir /tmp/fooby .
 $ ls /tmp/fooby
 xyz__hello__.txt        zz__something__.jpg</pre>
         </div>
@@ -672,7 +672,7 @@ xyz__hello__.txt        zz__something__.jpg</pre>
         </div>
 
         <div class="block">
-          <pre>$ ./copyspecial.py --tozip tmp.zip .</pre>
+          <pre>$ python copyspecial.py --tozip tmp.zip .</pre>
         </div>
       </div>
     </div>
@@ -732,7 +732,7 @@ xyz__hello__.txt        zz__something__.jpg</pre>
         </div>
 
         <div class="block">
-          <pre>$ ./logpuzzle.py animal_code.google.com
+          <pre>$ python logpuzzle.py animal_code.google.com
 http://code.google.com/something/puzzle-animal-baaa.jpg
 http://code.google.com/something/puzzle-animal-baab.jpg
 ...</pre>
@@ -770,7 +770,7 @@ http://code.google.com/something/puzzle-animal-baab.jpg
         </div>
 
         <div class="block">
-          <pre>$ ./logpuzzle.py --todir animaldir animal_code.google.com
+          <pre>$ python logpuzzle.py --todir animaldir animal_code.google.com
 $ ls animaldir
 img0  img1  img2  img3  img4  img5  img6  img7  img8  img9  index.html</pre>
         </div>
@@ -793,6 +793,90 @@ img0  img1  img2  img3  img4  img5  img6  img7  img8  img9  index.html</pre>
         <div class="block">
           Extend your code to order such URLs properly, and then you should be able to decode the
           <b>place_code.google.com</b> puzzle which shows a famous place. What place does it show?
+        </div>
+
+        <h2 class="title is-3">Part 4</h2>
+        <div class="block">
+          The official Python documentation for
+          <code><a href="https://docs.python.org/3/library/urllib.request.html" target="_blank">urllib.request</a></code>
+          recommends using the <a href="https://requests.readthedocs.io/en/master/" target="_blank">Requests</a> package
+          for a higher-level HTTP client interface. This is a great opportunity to practice using third party libraries
+          in your scripts.
+        </div>
+
+        <div class="block">
+          You can either work in your existing <b>logpuzzle</b> directory or create a new directory for the new version
+          of the puzzle. Within that directory, we want to create a Python
+          <a href="https://docs.python.org/3/library/venv.html#venv-def">virtual environment</a> using this command:
+        </div>
+
+        <div class="block">
+          <pre>python -m venv .venv</pre>
+        </div>
+
+        <div class="block">
+          Next we want to activate our new virtual environment:
+        </div>
+
+        <div class="block">
+          <pre>source .venv/bin/activate</pre>
+        </div>
+
+        <div class="block">
+          <div class="notification is-info">
+            <i>Note:</i> The path will be <code>.venv/Scripts/activate</code> on Windows
+          </div>
+        </div>
+
+        <div class="block">
+          Now we want to create a file called <b>requirements.txt</b>, which will contain a list of the third-party
+          packages that our script depends on.
+        </div>
+
+        <div class="block">
+          <pre>requests==2.27</pre>
+        </div>
+
+        <div class="block">
+          This file ensures that our script will always use version <code>2.27.*</code> of this package. A newer version
+          of the package might be available in the future -- feel free to experiment with newer versions if you'd like.
+        </div>
+
+        <div class="block">
+          Next we need to install the package into our active virtual environment.
+        </div>
+
+        <div class="block">
+          <pre>pip install -r requirements.txt</pre>
+        </div>
+
+        <div class="block">
+          And now in the <b>logpuzzle.py</b> script, we can import the new package:
+        </div>
+
+        <div class="block">
+          <pre>import requests</pre>
+        </div>
+
+        <div class="block">
+          The goal here is to replace our call to <code>urllib.request.urlretrieve</code>. The <code>requests</code>
+          package supports downloading a file from a given URL with the following approach:
+        </div>
+
+        <div class="block">
+          <pre>r = requests.get(url, stream=True)
+with open(filename, 'wb') as fd:
+    for chunk in r.iter_content(chunk_size=128):
+        fd.write(chunk)</pre>
+        </div>
+
+        <div class="block">
+          Run your script again to verify that it still works as expected.
+        </div>
+
+        <div class="block">
+          <pre>$ python logpuzzle.py --todir animaldir animal_code.google.com
+$ python logpuzzle.py --todir placedir place_code.google.com</pre>
         </div>
 
         <div class="block">
