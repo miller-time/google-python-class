@@ -147,6 +147,16 @@
                 </span>
               </a>
             </li>
+            <li>
+              <a data-page="git-config">
+                <span class="icon-text">
+                  <span class="icon">
+                    <i class="fas fa-clipboard-list"></i>
+                  </span>
+                  <span>Git Config</span>
+                </span>
+              </a>
+            </li>
           </ul>
 
         </aside>
@@ -885,6 +895,122 @@ $ python logpuzzle.py --todir placedir place_code.google.com</pre>
           license, which generously encourages remixes of the content such as this one. The animal image is from the
           user zappowbang at flickr and the place image is from the user booleansplit at flickr.
         </div>
+      </div>
+    </div>
+
+    <div id="git-config">
+      <h1 class="title">Git Config Exercise</h1>
+      <div class="block">
+        The final exercise is <b>gitconfig/gitconfig.py</b>. In this exercise we'll run an external program using
+        Python's <code>subprocess</code> module and we'll practice using the <code>argparse</code> module.
+      </div>
+
+      <div class="block">
+        Before jumping in, make sure <b>git</b> is installed on your system. On Windows,
+        <a href="https://gitforwindows.org/" target="_blank">Git BASH</a> is a great option.
+      </div>
+
+      <div class="block">
+        If you have a new <b>git</b> installation, then a good first step to make sure it works and get it configured
+        properly is to set your global username and email (used for authoring commits):
+      </div>
+
+      <div class="block">
+        <pre>$ git config --global user.name=me
+$ git config --global user.email=my@email.biz</pre>
+      </div>
+
+      <h2 class="title is-3">Part 1</h2>
+      <div class="block">
+        As a first step, we'll just list all of the properties in our global git config. Your
+        <code>ArgumentParser</code> will need an argument for specifying that you just want to print a listing.
+      </div>
+
+      <div class="block">
+        <pre>parser.add_argument('--list', action='store_true', help='list existing git configs')</pre>
+      </div>
+
+      <div class="block">
+        By setting <code>action='store_true'</code>, the value of the parsed <code>args.list</code> will now either be
+        <code>True</code> or <code>False</code> depending on whether <code>--list</code> was passed to your script. In
+        addition to simplifying the parsing of arguments, <code>argparse</code> also automatically provides great help
+        text that can be accessed with <code>-h</code> or <code>--help</code>.
+      </div>
+
+      <div class="block">
+        <pre>$ python exercises/gitconfig/solution/gitconfig.py -h
+usage: gitconfig.py [-h] [--list]
+
+options:
+  -h, --help     show this help message and exit
+  --list         list existing git configs</pre>
+      </div>
+
+      <div class="block">
+        Use the
+        <code><a href="https://docs.python.org/3/library/subprocess.html#subprocess.run" target="_blank">subprocess.run</a></code>
+        function to run the following command:
+      </div>
+
+      <div class="block">
+        <pre>git config --global --list</pre>
+      </div>
+
+      <div class="block">
+        When you run your script, you should see your git config printed to the screen:
+      </div>
+
+      <div class="block">
+        <pre>$ python gitconfig.py --list
+user.email=my@email.biz
+user.name=me</pre>
+      </div>
+
+      <h2 class="title is-3">Part 2</h2>
+      <div class="block">
+        Next, we'll make it possible to set git config properties with your script.
+      </div>
+
+      <div class="block">
+        Your <code>ArgumentParser</code> will need some more arguments.
+      </div>
+
+      <div class="block">
+        <pre>parser.add_argument('--set', help='config key to set')
+parser.add_argument('--value', help='config value to set')</pre>
+      </div>
+
+      <div class="block">
+        Arguments added like this store a string value. This is what you'll want for passing the config key and value to
+        your function that runs the external command. The parsed <code>args.set</code> will be the key and
+        <code>args.value</code> will be the value. Now you can construct a command like so:
+      </div>
+
+      <div class="block">
+        <pre>git config --global {key}={value}</pre>
+      </div>
+
+      <div class="block">
+        Try it out with these git configs that also happen to be <i>very</i> useful!
+      </div>
+
+      <div class="block">
+        <pre>$ python gitconfig.py --set push.default --value current
+$ python gitconfig.py --set merge.conflictstyle --value diff3
+$ python gitconfig.py --set rebase.autostash --value true
+$ python gitconfig.py --set rebase.autosquash --value true
+$ python gitconfig.py --set rebase.missingcommitscheck --value error
+$ python gitconfig.py --set color.ui --value true
+
+$ python gitconfig.py --list
+user.email=my@email.biz
+user.name=me
+push.default=current
+merge.conflictstyle=diff3
+rebase.autostash=true
+rebase.autosquash=true
+rebase.missingcommitscheck=error
+color.ui=true</pre>
       </div>
     </div>
 
