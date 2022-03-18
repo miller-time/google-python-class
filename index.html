@@ -115,11 +115,35 @@
             </li>
           </ul>
 
+          <p class="menu-label">Utilities</p>
+          <ul class="menu-list">
+            <li>
+              <a data-page="utils">
+                <span class="icon-text">
+                  <span class="icon">
+                    <i class="fas fa-book"></i>
+                  </span>
+                  <span>Reference</span>
+                </span>
+              </a>
+            </li>
+            <li>
+              <a data-page="copy-special">
+                <span class="icon-text">
+                  <span class="icon">
+                    <i class="fas fa-clipboard-list"></i>
+                  </span>
+                  <span>Copy Special</span>
+                </span>
+              </a>
+            </li>
+          </ul>
+
         </aside>
       </div>
 
       <div class="column pl-6">
-        <div id="page"></div>
+        <div id="page" class="mb-6"></div>
       </div>
     </div>
   </div>
@@ -284,6 +308,7 @@
         original Google Python Class <a href="https://developers.google.com/edu/python/exercises/baby-names"
           target="_blank">Baby Names</a> page. It is also copied below.
       </div>
+
       <div class="box">
         <div class="block">
           The Social Security administration has this neat data by year of what names are most popular for babies born
@@ -298,7 +323,7 @@
           out of it.
         </div>
 
-        <h2 class="title is-3">Part A</h2>
+        <h2 class="title is-3">Part 1</h2>
         <div class="block">
           In the babynames.py file, implement the <code>extract_names(filename)</code> function which takes the filename
           of a baby1990.html file and returns the data from the file as a single list -- the year string at the start of
@@ -370,7 +395,7 @@ Abbie 650
 ...</pre>
         </div>
 
-        <h2 class="title is-3">Part B</h2>
+        <h2 class="title is-3">Part 2</h2>
         <div class="block">
           Suppose instead of printing the text to standard out, we want to write files containing the text. If the flag
           <code>--summaryfile</code> is present, do the following: for each input file foo.html, create a new file
@@ -423,6 +448,222 @@ $ grep 'Emily ' *.summary</pre>
         </div>
         <script src="hints.js"></script>
 
+      </div>
+    </div>
+
+    <div id="utils">
+      <h1 class="title">Utilities</h1>
+      <div class="block">
+        In this section, we look at a few of Python's many standard utility modules to solve common problems. Much of
+        this reference is adapted from the original Google Python Class
+        <a href="https://developers.google.com/edu/python/utilities" target="_blank">Utilities</a> page. Some of the
+        utilities mentioned on that page are no longer used in Python (because better replacements exist).
+      </div>
+
+      <h3 class="title is-5"><code>os</code></h3>
+      <div class="block">
+        First of all, there are many useful utilities in Python's <code>os</code> module. The official Python
+        documentation for the <code><a href="https://docs.python.org/3/library/os.html" target="_blank">os</a></code>
+        module is a great reference. Some highlights:
+
+        <div class="content">
+          <ul>
+            <li><code>listdir</code></li>
+            <li><code>mkdir</code></li>
+            <li><code>makedirs</code></li>
+            <li><code>remove</code></li>
+            <li><code>rename</code></li>
+            <li><code>rmdir</code></li>
+            <li><code>walk</code></li>
+          </ul>
+        </div>
+      </div>
+
+      <h3 class="title is-5"><code>os.path</code></h3>
+      <div class="block">
+        Next up is Python's <code>os.path</code> module. Check out the official Python documentation for the
+        <code><a href="https://docs.python.org/3/library/os.path.html" target="_blank">os.path</a></code> module. Some
+        highlights:
+
+        <div class="content">
+          <ul>
+            <li><code>os.path.join</code> - <i>very</i> useful for uniform handling of paths on <b>linux</b> (where
+              directories are separated by <code>/</code>) and <b>windows</b> (where directories are separated by
+              <code>\</code>)
+            </li>
+            <li><code>abspath</code></li>
+            <li><code>basename</code></li>
+            <li><code>dirname</code></li>
+            <li><code>exists</code></li>
+            <li><code>isfile</code></li>
+            <li><code>isdir</code></li>
+          </ul>
+        </div>
+      </div>
+
+      <h3 class="title is-5"><code>shutil</code></h3>
+      <div class="block">
+        The Python <code>shutil</code> module most notably has the <code>shutil.copy</code> function for copying files
+        from one location to another. Check out the official Python documentation for the
+        <code><a href="https://docs.python.org/3/library/shutil.html" target="_blank">shutil</a></code> module.
+      </div>
+
+      <h3 class="title is-5"><code>zipfile</code></h3>
+      <div class="block">
+        Python has a module called <code>zipfile</code> that can be used to work with zip files. Check out the official
+        Python documentation for the
+        <code><a href="https://docs.python.org/3/library/zipfile.html" target="_blank">zipfile</a></code> module. Using
+        this module, it's easy to create zip files like so:
+      </div>
+
+      <div class="block">
+        <pre>with ZipFile('spam.zip', 'w') as myzip:
+    myzip.write('eggs.txt')</pre>
+      </div>
+
+      <div class="block">
+        This is handy because not all systems (especially Windows) are guaranteed to have a <code>zip</code> program
+        that can be called.
+      </div>
+
+      <div class="block">
+        In the <b>Copy Special</b> exercise, you'll be able to practice using the <code>os</code>, <code>os.path</code>,
+        <code>shutil</code>, and <code>zipfile</code> modules.
+      </div>
+
+      <h3 class="title is-5"><code>urllib</code></h3>
+      <div class="block">
+        Python's <code>urllib</code> module can be used to make requests and parse URLs (among other things). Check out
+        the official Python documentation for the
+        <code><a href="https://docs.python.org/3/library/urllib.html" target="_blank">urllib</a></code> module. Some
+        highlights:
+
+        <div class="content">
+          <ul>
+            <li><code>urllib.request.urlretrieve</code></li>
+            <li><code>urllib.parse.urlparse</code></li>
+          </ul>
+        </div>
+
+        In the <b>Log Puzzle</b> exercise, you'll be able to practice using the <code>urllib</code> module.
+      </div>
+
+      <div class="block">
+        Python's documentation recommends using the <a href="https://requests.readthedocs.io/en/master/"
+          target="_blank">Requests</a> library for making requests. See Part 4 of the <b>Log Puzzle</b> exercise for a
+        guide to installing and using the <code>requests</code> package in Python.
+      </div>
+
+      <h3 class="title is-5"><code>venv</code></h3>
+      <div class="block">
+        The Python <code>venv</code> module can be used to create a Python <b>virtual environment</b>. Check out the
+        official Python documentation for the
+        <code><a href="https://docs.python.org/3/library/venv.html" target="_blank">venv</a></code> module.
+      </div>
+
+      <div class="block">
+        In Part 4 of the <b>Log Puzzle</b> exercise, you'll create a virtual environment and install the
+        <code>requests</code> package within that virtual environment.
+      </div>
+
+      <h3 class="title is-5"><code>subprocess</code></h3>
+      <div class="block">
+        Another very handle module is Python's <code>subprocess</code> module, which can be used to run another program
+        from your script. Python has come a long way over the years and now has the
+        <code><a href="https://docs.python.org/3/library/subprocess.html#subprocess.run" target="_blank">subprocess.run</a></code>
+        function, which is a very convenient way to run external programs in Python.
+      </div>
+
+      <h3 class="title is-5"><code>argparse</code></h3>
+      <div class="block">
+        The Python <code>argparse</code> module is used in a <i>lot</i> of Python scripts! Check out the official Python
+        documentation for the
+        <code><a href="https://docs.python.org/3/library/argparse.html" target="_blank">argparse</a></code> module.
+      </div>
+
+      <div class="block">
+        In the <b>Git Config</b> exercise, you'll get a chance to see how using the <code>argparse</code> module differs
+        from the direct use of <code>sys.argv</code> (that can be found in <code>main</code> functions throughout this
+        class).
+      </div>
+    </div>
+
+    <div id="copy-special">
+      <h1 class="title">Copy Special Exercise</h1>
+      <div class="block">
+        The next exercise is <b>copyspecial/copyspecial.py</b>. The instructions for the exercise can be found on the
+        original Google Python Class <a href="https://developers.google.com/edu/python/exercises/copy-special"
+          target="_blank">Copy Special</a> page. It is also copied below.
+      </div>
+
+      <div class="box">
+        <div class="block">
+          The <b>copyspecial.py</b> program takes one or more directories as its arguments. We'll say that a "special"
+          file is one where the name contains the pattern <code>__w__</code> somewhere, where the <code>w</code> is one
+          or more word chars. The provided <code>main</code> includes code to parse the command line arguments, but the
+          rest is up to you. Write functions to implement the features below and modify <code>main</code> to call your
+          functions.
+        </div>
+
+        <div class="block">
+          Suggested functions for your solution(details below):
+
+          <div class="content">
+            <ul>
+              <li>
+                <code>get_special_paths(dir: str) -> list[str]</code> - returns a list of the absolute paths of the
+                special files in the given directory
+              </li>
+              <li>
+                <code>copy_to(paths: list[str], dir: str) -> None</code> - given a list of paths, copies those files
+                into the given directory
+              </li>
+              <li>
+                <code>zip_to(paths: list[str], zippath: str)</code> - given a list of paths, zip those files up into the
+                given zipfile
+              </li>
+          </div>
+        </div>
+
+        <h2 class="title is-3">Part 1</h2>
+        <div class="block">
+          Gather a list of the absolute paths of the special files in all the directories. In the simplest case, just
+          print that list (here the <code>.</code> after the command is a single argument indicating the current
+          directory). Print one absolute path per line.
+        </div>
+
+        <div class="block">
+          <pre>$ ./copyspecial.py .
+/Users/miller-time/pycourse/day2/xyz__hello__.txt
+/Users/miller-time/pycourse/day2/zz__something__.jpg</pre>
+        </div>
+
+        <div class="block">
+          We'll assume that names are not repeated across the directories (optional: check that assumption and error out
+          if it's violated).
+        </div>
+
+        <h2 class="title is-3">Part 2</h2>
+        <div class="block">
+          If the <code>--todir dir</code> option is present, do not print anything and instead copy the files to the
+          given directory, creating it if necessary. Use the Python <code>shutil</code> module for file copying.
+        </div>
+
+        <div class="block">
+          <pre>$ ./copyspecial.py --todir /tmp/fooby .
+$ ls /tmp/fooby
+xyz__hello__.txt        zz__something__.jpg</pre>
+        </div>
+
+        <h2 class="title is-3">Part 3</h2>
+        <div class="block">
+          If the <code>--tozip zipfile</code> option is present, create the zip file using the Python
+          <code>zipfile</code> module.
+        </div>
+
+        <div class="block">
+          <pre>$ ./copyspecial.py --tozip tmp.zip .</pre>
+        </div>
       </div>
     </div>
 
