@@ -15,13 +15,15 @@
 # add 'ly' instead.
 # If the string length is less than 3, leave it unchanged.
 # Return the resulting string.
-def verbing(s):
+def verbing(s: str) -> str:
   # +++your code here+++
   # LAB(begin solution)
-  if len(s) >= 3:
-    if s[-3:] != 'ing': s = s + 'ing'
-    else: s = s + 'ly'
-  return s
+  if len(s) < 3:
+    return s
+  elif not s.endswith('ing'):
+    return s + 'ing'
+  else:
+    return s + 'ly'
   # LAB(replace solution)
   # return
   # LAB(end solution)
@@ -35,7 +37,7 @@ def verbing(s):
 # Return the resulting string.
 # So 'This dinner is not that bad!' yields:
 # This dinner is good!
-def not_bad(s):
+def not_bad(s: str) -> str:
   # +++your code here+++
   # LAB(begin solution)
   n = s.find('not')
@@ -55,7 +57,7 @@ def not_bad(s):
 # e.g. 'abcde', the front half is 'abc', the back half 'de'.
 # Given 2 strings, a and b, return a string of the form
 #  a-front + b-front + a-back + b-back
-def front_back(a, b):
+def front_back(a: str, b: str) -> str:
   # +++your code here+++
   # LAB(begin solution)
   # Figure out the middle position of each string.
@@ -64,7 +66,7 @@ def front_back(a, b):
   if len(a) % 2 == 1:  # add 1 if length is odd
     a_middle = a_middle + 1
   if len(b) % 2 == 1:
-    b_middle = b_middle + 1 
+    b_middle = b_middle + 1
   return a[:a_middle] + b[:b_middle] + a[a_middle:] + b[b_middle:]
   # LAB(replace solution)
   # return
@@ -73,17 +75,17 @@ def front_back(a, b):
 
 # Simple provided test() function used in main() to print
 # what each function returns vs. what it's supposed to return.
-def test(got, expected):
+def test(got: str, expected: str) -> None:
   if got == expected:
     prefix = ' OK '
   else:
     prefix = '  X '
-  print('%s got: %s expected: %s' % (prefix, repr(got), repr(expected)))
+  print(f"{prefix} got: {got} expected: {expected}")
 
 
 # main() calls the above functions with interesting inputs,
 # using the above test() to check if the result is correct or not.
-def main():
+def main() -> None:
   print('verbing')
   test(verbing('hail'), 'hailing')
   test(verbing('swiming'), 'swimingly')

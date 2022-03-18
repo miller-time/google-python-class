@@ -6,13 +6,15 @@
 # Google's Python Class
 # http://code.google.com/edu/languages/google-python-class/
 
+from typing import Any
+
 # Additional basic list exercises
 
 # D. Given a list of numbers, return a list where
 # all adjacent == elements have been reduced to a single element,
 # so [1, 2, 2, 3] returns [1, 2, 3]. You may create a new list or
 # modify the passed in list.
-def remove_adjacent(nums):
+def remove_adjacent(nums: list[int]) -> list[int]:
   # +++your code here+++
   # LAB(begin solution)
   result = []
@@ -29,7 +31,7 @@ def remove_adjacent(nums):
 # list of all the elements in sorted order. You may modify the passed in lists.
 # Ideally, the solution should work in "linear" time, making a single
 # pass of both lists.
-def linear_merge(list1, list2):
+def linear_merge(list1: list[str], list2: list[str]) -> list[str]:
   # +++your code here+++
   # LAB(begin solution)
   result = []
@@ -60,16 +62,16 @@ def linear_merge(list1, list2):
 
 # Simple provided test() function used in main() to print
 # what each function returns vs. what it's supposed to return.
-def test(got, expected):
+def test(got: list[Any], expected: list[Any]) -> None:
   if got == expected:
     prefix = ' OK '
   else:
     prefix = '  X '
-  print('%s got: %s expected: %s' % (prefix, repr(got), repr(expected)))
+  print(f"{prefix} got: {got} expected: {expected}")
 
 
 # Calls the above functions with interesting inputs.
-def main():
+def main() -> None:
   print('remove_adjacent')
   test(remove_adjacent([1, 2, 2, 3]), [1, 2, 3])
   test(remove_adjacent([2, 2, 3, 3, 3]), [2, 3])

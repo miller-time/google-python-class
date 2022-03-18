@@ -47,7 +47,7 @@ import sys
 
 #### LAB(begin solution)
 
-def word_count_dict(filename):
+def word_count_dict(filename: str) -> dict[str, int]:
   """Returns a word/count dict for this filename."""
   # Utility used by count() and Topcount().
   word_count = {}  # Map each word to its count
@@ -65,7 +65,7 @@ def word_count_dict(filename):
   return word_count
 
 
-def print_words(filename):
+def print_words(filename: str) -> None:
   """Prints one per line '<word> <count>' sorted by word for the given file."""
   word_count = word_count_dict(filename)
   words = sorted(word_count.keys())
@@ -73,18 +73,13 @@ def print_words(filename):
     print(word, word_count[word])
 
 
-def get_count(word_count_tuple):
-  """Returns the count from a dict word/count tuple  -- used for custom sort."""
-  return word_count_tuple[1]
-
-
-def print_top(filename):
+def print_top(filename: str) -> None:
   """Prints the top count listing for the given file."""
   word_count = word_count_dict(filename)
 
   # Each item is a (word, count) tuple.
   # Sort them so the big counts are first using key=get_count() to extract count.
-  items = sorted(list(word_count.items()), key=get_count, reverse=True)
+  items = sorted(list(word_count.items()), key=lambda t: t[1], reverse=True)
 
   # Print the first 20
   for item in items[:20]:
@@ -95,7 +90,7 @@ def print_top(filename):
 
 # This basic command line argument parsing code is provided and
 # calls the print_words() and print_top() functions which you must define.
-def main():
+def main() -> None:
   if len(sys.argv) != 3:
     print('usage: ./wordcount.py {--count | --topcount} file')
     sys.exit(1)
