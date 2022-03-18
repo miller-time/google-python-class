@@ -19,15 +19,15 @@ Here's what a puzzle url looks like:
 """
 
 
-def read_urls(filename):
+def read_urls(filename: str) -> list[str]:
   """Returns a list of the puzzle urls from the given log file,
   extracting the hostname from the filename itself.
   Screens out duplicate urls and returns the urls sorted into
   increasing order."""
   # +++your code here+++
-  
 
-def download_images(img_urls, dest_dir):
+
+def download_images(img_urls: list[str], dest_dir: str) -> None:
   """Given the urls already in the correct order, downloads
   each image into the given directory.
   Gives the images local filenames img0, img1, and so on.
@@ -36,7 +36,7 @@ def download_images(img_urls, dest_dir):
   Creates the directory if necessary.
   """
   # +++your code here+++
-  
+
 
 def main():
   args = sys.argv[1:]

@@ -19,7 +19,7 @@ Here's what a puzzle url looks like:
 """
 
 # LAB(begin solution)
-def url_sort_key(url):
+def url_sort_key(url: str) -> str:
   """Used to order the urls in increasing order by 2nd word if present."""
   match = re.search(r'-(\w+)-(\w+)\.\w+', url)
   if match:
@@ -28,7 +28,7 @@ def url_sort_key(url):
     return url
 # LAB(end solution)
 
-def read_urls(filename):
+def read_urls(filename: str) -> list[str]:
   """Returns a list of the puzzle urls from the given log file,
   extracting the hostname from the filename itself.
   Screens out duplicate urls and returns the urls sorted into
@@ -61,7 +61,7 @@ def read_urls(filename):
   # LAB(end solution)
 
 
-def download_images(img_urls, dest_dir):
+def download_images(img_urls: list[str], dest_dir: str) -> None:
   """Given the urls already in the correct order, downloads
   each image into the given directory.
   Gives the images local filenames img0, img1, and so on.
