@@ -19,7 +19,7 @@ import subprocess
 # Write functions and modify main() to call them
 
 # LAB(begin solution)
-def get_special_paths(dirname):
+def get_special_paths(dirname: str) -> list[str]:
   """Given a dirname, returns a list of all its special files."""
   result = []
   paths = os.listdir(dirname)  # list of paths in that dir
@@ -30,7 +30,7 @@ def get_special_paths(dirname):
   return result
 
 
-def copy_to(paths, to_dir):
+def copy_to(paths: list[str], to_dir: str) -> None:
   """Copy all of the given files to the given dir, creating it if necessary."""
   if not os.path.exists(to_dir):
     os.mkdir(to_dir)
@@ -40,7 +40,7 @@ def copy_to(paths, to_dir):
     # could error out if already exists os.path.exists():
 
 
-def zip_to(paths, zipfile):
+def zip_to(paths: list[str], zipfile: str) -> None:
   """Zip up all of the given files into a new zip file with the given name."""
   cmd = 'zip -j ' + zipfile + ' ' + ' '.join(paths)
   print("Command I'm going to do:" + cmd)
@@ -54,7 +54,7 @@ def zip_to(paths, zipfile):
 # LAB(end solution)
 
 
-def main():
+def main() -> None:
   # This basic command line argument parsing code is provided.
   # Add code to call your functions below.
 
