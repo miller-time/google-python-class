@@ -9,7 +9,8 @@
 import os
 import re
 import sys
-import urllib.request, urllib.parse, urllib.error
+
+import requests
 
 """Logpuzzle exercise
 Given an apache logfile, find the puzzle urls and download the images.
@@ -74,20 +75,22 @@ def download_images(img_urls: list[str], dest_dir: str) -> None:
   if not os.path.exists(dest_dir):
     os.makedirs(dest_dir)
 
-  index = file(os.path.join(dest_dir, 'index.html'), 'w')
-  index.write('<html><body>\n')
-
-  i = 0
-  for img_url in img_urls:
-    local_name = 'img%d' % i
+  img_names = []
+  for i, img_url in enumerate(img_urls):
+    local_name = f'img{i}'
+    img_names.append(local_name)
     print('Retrieving...', img_url)
-    urllib.request.urlretrieve(img_url, os.path.join(dest_dir, local_name))
 
-    index.write('<img src="%s">' % (local_name,))
-    i += 1
+    r = requests.get(img_url, stream=True)
+    with open(os.path.join(dest_dir, local_name), 'wb') as f:
+      for chunk in r.iter_content(chunk_size=128):
+        f.write(chunk)
 
-  index.write('\n</body></html>\n')
-  index.close()
+  with open(os.path.join(dest_dir, 'index.html'), 'w') as index:
+    index.write('<html><body>\n')
+    for local_name in img_names:
+      index.write(f'<img src="{local_name}">')
+    index.write('\n</body></html>\n')
   # LAB(end solution)
 
 
